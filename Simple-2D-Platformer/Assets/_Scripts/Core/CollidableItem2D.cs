@@ -22,7 +22,7 @@ namespace _Scripts.Core
             Debug.Log(other.gameObject.name);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log(other.gameObject.name);
         }

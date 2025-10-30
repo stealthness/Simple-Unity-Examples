@@ -32,7 +32,5 @@ namespace _Scripts.Player
             }
         }
         
-        
-        
     }
 }

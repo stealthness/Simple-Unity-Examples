@@ -8,6 +8,8 @@ namespace _Scripts.Player
     {
 
         private PlayerMovement2D _playerMovement;
+        
+        [SerializeField] private bool disabled = false;
 
 
         private void Awake()
@@ -17,6 +19,8 @@ namespace _Scripts.Player
 
         public void OnMove(InputValue value)
         {
+            if(disabled) return;
+            
             var inputVector = value.Get<Vector2>();
             _playerMovement.SetMoveDirection(inputVector);
         }
@@ -24,8 +28,17 @@ namespace _Scripts.Player
 
         public void OnJump()
         {
+            if(disabled) return;
+            
             Debug.Log("OnJump");
             _playerMovement.Jump();
+        }
+
+        public void PlayerDeath()
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            disabled = true;
+            
         }
     }
 }
