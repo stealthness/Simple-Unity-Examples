@@ -20,5 +20,12 @@ namespace _Scripts.Player
             var inputVector = value.Get<Vector2>();
             _playerMovement.SetMoveDirection(inputVector);
         }
+
+
+        public void OnJump(InputValue value)
+        {
+            Debug.Log("OnJump");
+            _playerMovement.Jump();
+        }
     }
 }
