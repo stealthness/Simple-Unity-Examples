@@ -9,7 +9,6 @@ namespace _Scripts.Player
         [SerializeField] private float jumpCooldown = 0.5f;
         [SerializeField] private int maxJumps = 2;
         [SerializeField] private int currentJumps = 2;
-        public bool IsGrounded { get; set; }
         
 
         private void Start()
@@ -26,26 +25,25 @@ namespace _Scripts.Player
         
         public override void Jump()
         {
-            if (CheckIsPlayerGrounded())
-            {
-                ResetNumberOfJumps();
-            }
             if (currentJumps <= 0) return;
             
-            currentJumps--;
             base.Jump();
+            currentJumps--;
         }
 
         
-        public override bool CheckIsPlayerGrounded()
-        {
-            ResetNumberOfJumps();
-            return true;
-        }
 
         private void ResetNumberOfJumps()
         {
             currentJumps = maxJumps;
+        }
+        
+        private void Update()
+        {
+            if (isGrounded)
+            {
+                ResetNumberOfJumps();
+            }
         }
     }
 }

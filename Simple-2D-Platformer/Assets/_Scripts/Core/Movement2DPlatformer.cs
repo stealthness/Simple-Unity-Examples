@@ -17,6 +17,7 @@ namespace _Scripts.Core
         [SerializeField] private float jumpForce = 10f;
         [SerializeField] protected Vector2 moveDirection = Vector2.one;
         [SerializeField] protected Vector2 jumpDirection = Vector2.up;
+        [SerializeField] protected internal bool isGrounded = false;
 
 
         private void Awake()
@@ -46,14 +47,13 @@ namespace _Scripts.Core
 
         public virtual void Jump()
         {
-            if (!CheckIsPlayerGrounded()) return;
+            if (!isGrounded) return;
             
             Debug.Log("Jump");
             _rigidbody2D.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
             
         }
         
-        public abstract bool CheckIsPlayerGrounded();
         
         
     }

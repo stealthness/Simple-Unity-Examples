@@ -19,7 +19,7 @@ namespace _Scripts.Player
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                _playerMovement.IsGrounded = true;
+                _playerMovement.isGrounded = true;
             }
         }
 
@@ -27,7 +27,7 @@ namespace _Scripts.Player
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                _playerMovement.IsGrounded = false;
+                _playerMovement.isGrounded = false;
             }
         }
         
