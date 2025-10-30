@@ -29,6 +29,7 @@ namespace _Scripts.Core
         private void Start()
         {
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            _rigidbody2D.freezeRotation = true;
         }
 
         private void FixedUpdate()
@@ -38,19 +39,21 @@ namespace _Scripts.Core
 
         private void Move()
         {
+            if (!_rigidbody2D) return;
+            
             _rigidbody2D.linearVelocity = new Vector2(moveDirection.x * moveSpeed, _rigidbody2D.linearVelocityY);
         }
 
         public virtual void Jump()
         {
-            if (!IsGrounded()) return;
+            if (!CheckIsPlayerGrounded()) return;
             
             Debug.Log("Jump");
             _rigidbody2D.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
             
         }
         
-        public abstract bool IsGrounded();
+        public abstract bool CheckIsPlayerGrounded();
         
         
     }

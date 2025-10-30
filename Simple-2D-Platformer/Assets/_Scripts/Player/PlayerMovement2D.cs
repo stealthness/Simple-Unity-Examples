@@ -9,7 +9,8 @@ namespace _Scripts.Player
         [SerializeField] private float jumpCooldown = 0.5f;
         [SerializeField] private int maxJumps = 2;
         [SerializeField] private int currentJumps = 2;
-
+        public bool IsGrounded { get; set; }
+        
 
         private void Start()
         {
@@ -19,12 +20,16 @@ namespace _Scripts.Player
         
         public void SetMoveDirection(Vector2 inputVector)
         {
-            moveDirection = new Vector2(inputVector.x, inputVector.y);
+            moveDirection = new Vector2(inputVector.x, inputVector.y); 
         }
         
         
         public override void Jump()
         {
+            if (CheckIsPlayerGrounded())
+            {
+                ResetNumberOfJumps();
+            }
             if (currentJumps <= 0) return;
             
             currentJumps--;
@@ -32,7 +37,7 @@ namespace _Scripts.Player
         }
 
         
-        public override bool IsGrounded()
+        public override bool CheckIsPlayerGrounded()
         {
             ResetNumberOfJumps();
             return true;
