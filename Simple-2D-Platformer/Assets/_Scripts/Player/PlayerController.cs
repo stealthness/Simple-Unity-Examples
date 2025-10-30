@@ -1,16 +1,24 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+namespace _Scripts.Player
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [RequireComponent(typeof(PlayerMovement2D))]
+    public class PlayerController : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private PlayerMovement2D _playerMovement;
+
+
+        private void Awake()
+        {
+            _playerMovement = GetComponent<PlayerMovement2D>();
+        }
+
+        public void OnMove(InputValue value)
+        {
+            var inputVector = value.Get<Vector2>();
+            _playerMovement.SetMoveDirection(inputVector);
+        }
     }
 }
