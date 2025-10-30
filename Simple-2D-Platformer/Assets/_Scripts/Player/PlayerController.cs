@@ -22,7 +22,7 @@ namespace _Scripts.Player
         }
 
 
-        public void OnJump(InputValue value)
+        public void OnJump()
         {
             Debug.Log("OnJump");
             _playerMovement.Jump();

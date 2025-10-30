@@ -20,6 +20,7 @@ namespace _Scripts.Player
             if (collision.gameObject.CompareTag("Ground"))
             {
                 _playerMovement.isGrounded = true;
+                _playerMovement.ResetNumberOfJumps();
             }
         }
 

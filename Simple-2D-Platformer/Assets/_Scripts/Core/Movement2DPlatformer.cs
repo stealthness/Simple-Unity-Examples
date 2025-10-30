@@ -10,11 +10,11 @@ namespace _Scripts.Core
     [RequireComponent(typeof(Collider2D))]
     public abstract class Movement2DPlatformer : MonoBehaviour
     {
-        private Rigidbody2D _rigidbody2D;
+        protected Rigidbody2D _rigidbody2D;
         private Collider2D _collider2D;
         
         [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] public float jumpForce = 10f;
         [SerializeField] protected Vector2 moveDirection = Vector2.one;
         [SerializeField] protected Vector2 jumpDirection = Vector2.up;
         [SerializeField] protected internal bool isGrounded = false;

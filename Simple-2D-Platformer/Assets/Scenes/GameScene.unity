@@ -1059,6 +1059,7 @@ MonoBehaviour:
   jumpForce: 10
   moveDirection: {x: 1, y: 1}
   jumpDirection: {x: 0, y: 1}
+  isGrounded: 0
   jumpCooldown: 0.5
   maxJumps: 2
   currentJumps: 0
@@ -1166,7 +1167,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c5dacc9a92e3834f9b38a6edf532107, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1176,7 +1177,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1940006118
 MonoBehaviour:
   m_ObjectHideFlags: 0
