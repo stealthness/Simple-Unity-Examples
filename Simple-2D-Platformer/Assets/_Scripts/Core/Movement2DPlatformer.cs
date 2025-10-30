@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class Movement2DPlatformer : MonoBehaviour
+namespace _Scripts.Core
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class Movement2DPlatformer : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] private Vector2 moveDirection = Vector2.one;
+    
+    
+        private void LateUpdate()
+        {
+            transform.Translate(moveDirection.normalized * (moveSpeed * Time.deltaTime), Space.World);
+        }
     }
 }
