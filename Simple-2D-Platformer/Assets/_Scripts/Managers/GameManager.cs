@@ -1,16 +1,30 @@
+using System;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace _Scripts.Managers
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        
-    }
+   
+        public static GameManager Instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+
+        private void Start()
+        {
+            Debug.Log("GameManager Start");    
+        }
+
     }
 }
