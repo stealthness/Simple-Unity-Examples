@@ -1,15 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 public class MouseClickerTracker : MonoBehaviour
 {
     private Camera _camera;
+    private ScoreManager _targetManager;
     
     private void Awake()
     {
         _camera = Camera.main;
+        _targetManager = FindAnyObjectByType<ScoreManager>();
     }
     
     private void OnClick(InputValue value)
@@ -24,7 +25,7 @@ public class MouseClickerTracker : MonoBehaviour
     }
     
     
-    private static void CheckForTargets(Vector3 worldPosition)
+    private void CheckForTargets(Vector3 worldPosition)
     {
         var hit = Physics2D.Raycast(worldPosition, Vector2.zero);
         
@@ -35,6 +36,8 @@ public class MouseClickerTracker : MonoBehaviour
         
         if (!hit || !hit.collider.CompareTag("Target")) return;
 
+        _targetManager.OnScoreChanged?.Invoke(1);
         hit.collider.gameObject.SetActive(false);
+        
     }
 }
