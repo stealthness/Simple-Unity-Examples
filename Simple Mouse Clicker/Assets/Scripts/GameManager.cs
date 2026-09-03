@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject MenuPanel;
+    [SerializeField] private GameObject menuPanel;
 
     private void Awake()
     {
-        MenuPanel.SetActive(true);
+        menuPanel.SetActive(true);
     }
 
 
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
     public void OnStartButtonClick()
     {
         Debug.Log("Start button clicked.");
-        MenuPanel.SetActive(false);
+        menuPanel.SetActive(false);
         TargetSpawner.Instance.StartSpawning();
     }
 }

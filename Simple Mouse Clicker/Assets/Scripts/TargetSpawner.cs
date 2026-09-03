@@ -6,10 +6,12 @@ public class TargetSpawner : MonoBehaviour
 {
     public static TargetSpawner Instance { get; private set; }
     public GameObject targetPrefab;
-
-    private HashSet<GameObject> _targets;
+    [SerializeField] private Transform upperLeftCorner;
+    [SerializeField] private Transform lowerRightCorner;
     
-
+    private HashSet<GameObject> _targets;
+        
+    
     private void Awake()
     {
         Instance = this;
@@ -19,13 +21,13 @@ public class TargetSpawner : MonoBehaviour
             _targets.Add(CreateTarget());
         }
     }
-    
+        
     public void StartSpawning()
     {
         Debug.Log("TargetSpawner started spawning targets.");
-        InvokeRepeating(nameof(SpawnTarget), 0f, 2f);
+        InvokeRepeating(nameof(SpawnTarget), 0f, 0.5f);
     }
-
+    
     private void SpawnTarget()
     {
         foreach (var target in _targets.Where(target => !target.activeInHierarchy))
@@ -33,17 +35,20 @@ public class TargetSpawner : MonoBehaviour
             target.SetActive(true);
             return;
         }
-
+    
         _targets.Add(CreateTarget());
     }
-    
+        
     private GameObject CreateTarget()
     {
-        var randomPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
+        var maxX = upperLeftCorner.position.x;
+        var minX = lowerRightCorner.position.x;
+        var maxY = upperLeftCorner.position.y;
+        var minY = lowerRightCorner.position.y;
+
+        var randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
         var target = Instantiate(targetPrefab, randomPosition, Quaternion.identity, transform);
         target.SetActive(false);
         return target;
     }
-
- 
 }
