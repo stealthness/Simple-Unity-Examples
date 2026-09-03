@@ -10,7 +10,7 @@ namespace _Scripts.Core
             if (other.CompareTag("Player"))
             {
                 Debug.Log("Player hit spikes!");
-                other.gameObject.GetComponent<PlayerController>().PlayerDeath();
+                other.GetComponent<PlayerController>().PlayerDeath();
             }
         }
     }

@@ -294,9 +294,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 319461498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3deb7fd8a7a47fda1797fcc060f0a6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 550584d3ba734110998335886314d63c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Scripts.Core.CollidableItem2D
+  m_EditorClassIdentifier: Assembly-CSharp::_Scripts.Core.PotionPickUp
 --- !u!1 &362696182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,7 +1307,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1808285457
 MonoBehaviour:
@@ -1434,6 +1434,7 @@ MonoBehaviour:
   moveDirection: {x: 1, y: 1}
   jumpDirection: {x: 0, y: 1}
   isGrounded: 0
+  disabled: 0
   jumpCooldown: 0.5
   maxJumps: 2
   currentJumps: 0

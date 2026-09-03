@@ -18,6 +18,7 @@ namespace _Scripts.Core
         [SerializeField] protected Vector2 moveDirection = Vector2.one;
         [SerializeField] protected Vector2 jumpDirection = Vector2.up;
         [SerializeField] protected internal bool isGrounded = false;
+        [SerializeField] protected internal bool disabled = false;
 
 
         private void Awake()
@@ -35,12 +36,28 @@ namespace _Scripts.Core
 
         private void FixedUpdate()
         {
+            if (disabled)
+            {
+                _rigidbody2D.linearVelocityX = 0;
+                return;
+            }
+            
             Move();
         }
 
         private void Move()
         {
             if (!_rigidbody2D) return;
+
+
+            if (_rigidbody2D.linearVelocityX > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (_rigidbody2D.linearVelocityX < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
             
             _rigidbody2D.linearVelocity = new Vector2(moveDirection.x * moveSpeed, _rigidbody2D.linearVelocityY);
         }

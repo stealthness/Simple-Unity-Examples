@@ -1,3 +1,4 @@
+using System;
 using _Scripts.Core;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,7 +19,8 @@ namespace _Scripts.Player
             _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             jumpForce = 5f;
         }
-
+        
+        
         private void Start()
         {
             currentJumps = maxJumps;
@@ -46,7 +48,11 @@ namespace _Scripts.Player
         {
             currentJumps = maxJumps;
         }
-        
 
+
+        public void Stop()
+        {
+            _rigidbody2D.linearVelocityX = 0;
+        }
     }
 }
