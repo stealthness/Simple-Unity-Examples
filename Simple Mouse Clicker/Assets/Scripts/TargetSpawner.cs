@@ -33,6 +33,7 @@ public class TargetSpawner : MonoBehaviour
         foreach (var target in _targets.Where(target => !target.activeInHierarchy))
         {
             target.SetActive(true);
+            target.transform.position = GetRandomVector2();
             return;
         }
     
@@ -41,14 +42,20 @@ public class TargetSpawner : MonoBehaviour
         
     private GameObject CreateTarget()
     {
+        var randomPosition = GetRandomVector2();
+        var target = Instantiate(targetPrefab, randomPosition, Quaternion.identity, transform);
+        target.SetActive(false);
+        return target;
+    }
+
+    private Vector3 GetRandomVector2()
+    {
         var maxX = upperLeftCorner.position.x;
         var minX = lowerRightCorner.position.x;
         var maxY = upperLeftCorner.position.y;
         var minY = lowerRightCorner.position.y;
 
         var randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
-        var target = Instantiate(targetPrefab, randomPosition, Quaternion.identity, transform);
-        target.SetActive(false);
-        return target;
+        return randomPosition;
     }
 }
