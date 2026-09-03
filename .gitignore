@@ -31,6 +31,7 @@
 **/[Ff]onts/
 **/[Tt]ilemaps/
 **/[Aa]nimated [Tt]ilemaps/
+**/[Hh]idden/
 *.log
 
 **.meta
