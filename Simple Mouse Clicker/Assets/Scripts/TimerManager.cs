@@ -26,6 +26,20 @@ public class TimerManager : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.onRestartGame.AddListener(ResetTimer);
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.Instance.onRestartGame.RemoveListener(ResetTimer);
+    }
+
+    private void ResetTimer()
+    {
+        _timer.ResetTimer();
+    }
 
 
     private void Start()

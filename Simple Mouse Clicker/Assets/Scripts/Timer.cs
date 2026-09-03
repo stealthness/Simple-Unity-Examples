@@ -104,4 +104,17 @@ public class Timer
     }
 
 
+    public void ResetTimer()
+    {
+        if (IsCountingUp)
+        {
+            ElapsedTime = 0;
+        }
+        else
+        {
+            // Reset to initial countdown time if needed, or set to 0
+            ElapsedTime = 0; // or set to a specific countdown time if desired
+        }
+        StopTimer();
+    }
 }
