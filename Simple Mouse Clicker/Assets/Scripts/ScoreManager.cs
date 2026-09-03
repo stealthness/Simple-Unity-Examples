@@ -35,4 +35,9 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = $"Score: {_score}";
         }
+
+        public string GetScore()
+        {
+            return _score.ToString();
+        }
 }
