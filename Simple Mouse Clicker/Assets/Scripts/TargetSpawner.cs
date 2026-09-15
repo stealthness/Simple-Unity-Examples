@@ -40,8 +40,8 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void ResetTargets()
     {
-        Debug.Log("TM::Reset all targets.");
-        StopAllCoroutines();
+        
+        ClearTargets();
         foreach (var target in _targets)
         {
             target.SetActive(false);
@@ -53,8 +53,7 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void StartSpawning()
     {
-        CancelInvoke(nameof(SpawnTarget));
-        StopAllCoroutines();
+        ClearTargets();
         InvokeRepeating(nameof(SpawnTarget), 0f, 0.5f);
     }
     
@@ -125,11 +124,11 @@ public class TargetSpawner : MonoBehaviour
     /// <returns>A random Vector3 position within the defined area.</returns>
     private Vector3 GetRandomVector2()
     {
-        var maxX = upperLeftCorner.position.x;
-        var minX = lowerRightCorner.position.x;
-        var maxY = upperLeftCorner.position.y;
-        var minY = lowerRightCorner.position.y;
-
+        var maxX = Mathf.Max(upperLeftCorner.position.x, lowerRightCorner.position.x);
+        var minX = Mathf.Min(upperLeftCorner.position.x, lowerRightCorner.position.x);
+        var maxY = Mathf.Max(upperLeftCorner.position.y, lowerRightCorner.position.y);
+        var minY = Mathf.Min(upperLeftCorner.position.y, lowerRightCorner.position.y);
+        
         var randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
         return randomPosition;
     }

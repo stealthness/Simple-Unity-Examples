@@ -441,6 +441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078d55fc1e4a45b0a05cb2251252bed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseClickerTracker
+  scoreManager: {fileID: 0}
+  scorePerTarget: 10
 --- !u!114 &483180183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,9 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   menuPanel: {fileID: 1801486800}
-  onRestartGame:
-    m_PersistentCalls:
-      m_Calls: []
+  scoreManager: {fileID: 1883595783}
   onStartGame:
     m_PersistentCalls:
       m_Calls: []
@@ -1532,7 +1532,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d609a6d7342f4e20a7fed3bd52adbe1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
+  countdownFinishedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1417117839}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: TimerFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1272413525}
+        m_TargetAssemblyTypeName: TargetSpawner, Assembly-CSharp
+        m_MethodName: ClearTargets
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   timerText: {fileID: 589157011}
+  gameCountdownDuration: 10
+  targetSpawner: {fileID: 1272413525}
 --- !u!1 &1801486800
 GameObject:
   m_ObjectHideFlags: 0

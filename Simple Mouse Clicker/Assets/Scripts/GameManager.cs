@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         menuPanel.SetActive(true);
         if (!scoreManager) scoreManager = FindAnyObjectByType<ScoreManager>();
+        
+        //onStartGame ??= new UnityEvent();
     }
 
     /// <summary>
@@ -57,8 +59,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuPanel.SetActive(false);
-        menuPanel.SetActive(false);
-        onStartGame.Invoke();
+        onStartGame?.Invoke();
     }
 
 

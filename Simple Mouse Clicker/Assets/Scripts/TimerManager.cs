@@ -37,7 +37,11 @@ public class TimerManager : MonoBehaviour
     /// It also initializes the Timer instance with the specified countdown duration and the countdownFinishedEvent as its event listener.
     /// </summary>
     private void Awake()
-    {
+    {   
+        // if we want just timer to count up, we can use the default constructor
+        //_timer = new Timer(this);     
+        _timer = new Timer(this, gameCountdownDuration, countdownFinishedEvent);
+             
         countdownFinishedEvent = new UnityEvent();
         countdownFinishedEvent.AddListener(() =>
         {
@@ -45,10 +49,6 @@ public class TimerManager : MonoBehaviour
             targetSpawner.ClearTargets();
             _timer.ResetTimer();
         });
-        _timer = new Timer(this, gameCountdownDuration, countdownFinishedEvent);
-        // if we want just timer to count up, we can use the default constructor
-        //_timer = new Timer(this);
-        
     }
 
     private void OnEnable()
@@ -77,7 +77,8 @@ public class TimerManager : MonoBehaviour
     /// </summary>
     private void StartTimer()
     {
-        Debug.Log("TM::StartTimer");
+        CancelInvoke(nameof(UpdateTimer));
+        _timer.ResetTimer();
         _timer.StartTimer();
         InvokeRepeating(nameof(UpdateTimer), 0f, 0.1f);
     }
