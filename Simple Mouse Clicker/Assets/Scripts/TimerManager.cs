@@ -11,20 +11,35 @@ using UnityEngine.Serialization;
 /// </summary>
 public class TimerManager : MonoBehaviour
 {
+    /// <summary>
+    /// Event that is invoked when the countdown timer finishes. It is initialized in the Awake method and has a listener
+    /// that calls the GameManager's TimerFinished method and resets the timer.
+    /// </summary>
+    public UnityEvent countdownFinishedEvent;
+    
     [SerializeField] private TextMeshProUGUI timerText;
+    
+    /// <summary>
+    /// The Timer instance that is used to track elapsed time. It is initialized in the Awake method with a countdown
+    /// duration of 10 seconds and the countdownFinishedEvent as its event listener.
+    /// </summary>
     private Timer _timer;
 
-    private UnityEvent _countdownFinishedEvent;
+    /// <summary>
+    /// The duration of the countdown timer in seconds. This can be set in the Unity Inspector.
+    /// </summary>
+    [SerializeField] private float gameCountdownDuration = 10f;
+
 
     private void Awake()
     {
-        _countdownFinishedEvent = new UnityEvent();
-        _countdownFinishedEvent.AddListener(() =>
+        countdownFinishedEvent = new UnityEvent();
+        countdownFinishedEvent.AddListener(() =>
         {
             GameManager.Instance.TimerFinished();
             _timer.ResetTimer();
         });
-        _timer = new Timer(this, 10, _countdownFinishedEvent);
+        _timer = new Timer(this, gameCountdownDuration, countdownFinishedEvent);
         // if we want just timer to count up, we can use the default constructor
         //_timer = new Timer(this);
         
@@ -32,13 +47,11 @@ public class TimerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.onRestartGame.AddListener(ResetTimer);
         GameManager.Instance.onStartGame.AddListener(StartTimer);
     }
     
     private void OnDisable()
     {
-        GameManager.Instance.onRestartGame.RemoveListener(ResetTimer);
         GameManager.Instance.onStartGame.RemoveListener(StartTimer);
     }
 

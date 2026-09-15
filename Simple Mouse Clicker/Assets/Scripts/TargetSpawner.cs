@@ -25,14 +25,12 @@ public class TargetSpawner : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.onStartGame.AddListener(StartSpawning);
-        GameManager.Instance.onRestartGame.AddListener(ResetTargets);
     }
 
     // Assumed That GameManager is not null
     private void OnDisable()
     {
 
-        GameManager.Instance.onRestartGame.RemoveListener(ResetTargets);
         GameManager.Instance.onStartGame.RemoveListener(StartSpawning);
     }
 

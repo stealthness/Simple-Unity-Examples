@@ -21,14 +21,14 @@ public class ScoreManager : MonoBehaviour
         private void OnEnable()
         {
             OnScoreChanged += AddScore;
-            GameManager.Instance.onRestartGame.AddListener(ResetScore);
+            GameManager.Instance.onStartGame.AddListener(ResetScore);
             
         }
 
         private void OnDisable()
         {
             OnScoreChanged -= AddScore;
-            GameManager.Instance.onRestartGame.RemoveListener(ResetScore);
+            GameManager.Instance.onStartGame.RemoveListener(ResetScore);
         }
 
         /// <summary>

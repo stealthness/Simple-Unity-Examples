@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance { get; private set; }
 
-    public UnityEvent onRestartGame;
     public UnityEvent onStartGame;
 
     private void Awake()

@@ -13,7 +13,7 @@ public class Timer
 
     private bool IsCountingUp { get; set; } = true; // set 
 
-    private readonly UnityEvent CountdownFinishedEvent;
+    public readonly UnityEvent CountdownFinishedEvent;
     
     private Coroutine _timerCoroutine;
     private readonly MonoBehaviour _timerManager;
@@ -98,7 +98,7 @@ public class Timer
                 {
                     ElapsedTime = 0;
                     StopTimer();
-                    //CountdownFinishedEvent?.Invoke();
+                    CountdownFinishedEvent?.Invoke();
                 }
             }
             yield return null;
