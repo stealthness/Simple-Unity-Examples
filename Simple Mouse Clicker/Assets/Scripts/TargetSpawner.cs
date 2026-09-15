@@ -24,13 +24,14 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        GameManager.Instance.onStartGame.AddListener(ClearTargets);
         GameManager.Instance.onStartGame.AddListener(StartSpawning);
     }
 
     // Assumed That GameManager is not null
     private void OnDisable()
     {
-
+        GameManager.Instance.onStartGame.RemoveListener(ClearTargets);
         GameManager.Instance.onStartGame.RemoveListener(StartSpawning);
     }
 
@@ -52,6 +53,8 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void StartSpawning()
     {
+        CancelInvoke(nameof(SpawnTarget));
+        StopAllCoroutines();
         Debug.Log("TargetSpawner started spawning targets.");
         InvokeRepeating(nameof(SpawnTarget), 0f, 0.5f);
     }
@@ -70,6 +73,23 @@ public class TargetSpawner : MonoBehaviour
         var newTarget = CreateTarget();
         newTarget.SetActive(true);
         _targets.Add(newTarget);
+    }
+
+    /// <summary>
+    /// Resets the target pool by destroying all existing target GameObjects in the _targets HashSet, clearing the HashSet,
+    /// and creating a new pool of target GameObjects with an initial size of 5. This method is useful for resetting the
+    /// game state or starting a new game session.
+    /// </summary>
+    public void ClearTargets()
+    {
+        Debug.Log("Clearing all targets.");
+        CancelInvoke(nameof(SpawnTarget));
+        foreach (var target in _targets)
+        {
+            Destroy(target);
+        }
+        _targets.Clear();
+        CreateTargetPool(5);
     }
     
     

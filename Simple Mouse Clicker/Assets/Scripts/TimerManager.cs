@@ -29,6 +29,8 @@ public class TimerManager : MonoBehaviour
     /// The duration of the countdown timer in seconds. This can be set in the Unity Inspector.
     /// </summary>
     [SerializeField] private float gameCountdownDuration = 10f;
+    
+    [SerializeField] private TargetSpawner targetSpawner;
 
 
     private void Awake()
@@ -37,6 +39,7 @@ public class TimerManager : MonoBehaviour
         countdownFinishedEvent.AddListener(() =>
         {
             GameManager.Instance.TimerFinished();
+            targetSpawner.ClearTargets();
             _timer.ResetTimer();
         });
         _timer = new Timer(this, gameCountdownDuration, countdownFinishedEvent);
