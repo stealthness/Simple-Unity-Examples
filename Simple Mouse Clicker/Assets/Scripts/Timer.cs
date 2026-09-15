@@ -10,22 +10,25 @@ public class Timer
 {
     public float ElapsedTime{ get ; private set; }
     public bool IsRunning { get ; private set; }
-    
-    public bool IsCountingUp { get; set; } = true;
 
-    public readonly UnityEvent CountdownFinishedEvent;
+    private bool IsCountingUp { get; set; } = true; // set 
+
+    private readonly UnityEvent CountdownFinishedEvent;
     
     private Coroutine _timerCoroutine;
     private readonly MonoBehaviour _timerManager;
+    private readonly float _initialCountdownTime; // store initial countdown duration
     
     public Timer(MonoBehaviour timerManager)
     {
         _timerManager = timerManager;
+        _initialCountdownTime = 0f;
     }
 
     public Timer(MonoBehaviour timerManager,float initialTime, UnityEvent countdownFinishedEvent)
     {
         _timerManager = timerManager;
+        _initialCountdownTime = initialTime;
         ElapsedTime = initialTime;
         IsCountingUp = false;
         CountdownFinishedEvent = countdownFinishedEvent;
@@ -65,7 +68,7 @@ public class Timer
     /// <summary>
     /// Stops the timer by stopping the coroutine that updates the elapsed time.
     /// </summary>
-    public void StopTimer()
+    private void StopTimer()
     {
         if (_timerCoroutine != null)
         {
@@ -95,7 +98,7 @@ public class Timer
                 {
                     ElapsedTime = 0;
                     StopTimer();
-                    CountdownFinishedEvent?.Invoke();
+                    //CountdownFinishedEvent?.Invoke();
                 }
             }
             yield return null;
@@ -112,8 +115,8 @@ public class Timer
         }
         else
         {
-            // Reset to initial countdown time if needed, or set to 0
-            ElapsedTime = 0; // or set to a specific countdown time if desired
+            // Reset to the initial countdown time so the countdown restarts correctly
+            ElapsedTime = _initialCountdownTime;
         }
         StopTimer();
     }

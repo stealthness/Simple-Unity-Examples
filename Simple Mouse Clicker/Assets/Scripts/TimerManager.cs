@@ -19,7 +19,11 @@ public class TimerManager : MonoBehaviour
     private void Awake()
     {
         _countdownFinishedEvent = new UnityEvent();
-        _countdownFinishedEvent.AddListener(() => GameManager.Instance.TimerFinished());
+        _countdownFinishedEvent.AddListener(() =>
+        {
+            GameManager.Instance.TimerFinished();
+            _timer.ResetTimer();
+        });
         _timer = new Timer(this, 10, _countdownFinishedEvent);
         // if we want just timer to count up, we can use the default constructor
         //_timer = new Timer(this);
@@ -29,29 +33,28 @@ public class TimerManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.onRestartGame.AddListener(ResetTimer);
+        GameManager.Instance.onStartGame.AddListener(StartTimer);
     }
     
     private void OnDisable()
     {
         GameManager.Instance.onRestartGame.RemoveListener(ResetTimer);
+        GameManager.Instance.onStartGame.RemoveListener(StartTimer);
     }
 
     private void ResetTimer()
     {
+        Debug.Log("TM::Reset timer finished.");
+        CancelInvoke(nameof(UpdateTimer));
         _timer.ResetTimer();
-    }
-
-
-    private void Start()
-    {
-        StartTimer();
-        InvokeRepeating(nameof(UpdateTimer), 0f, 0.1f);
     }
 
 
     private void StartTimer()
     {
+        Debug.Log("TM::StartTimer");
         _timer.StartTimer();
+        InvokeRepeating(nameof(UpdateTimer), 0f, 0.1f);
     }
 
     public void UpdateTimer()

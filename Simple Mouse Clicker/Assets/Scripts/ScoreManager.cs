@@ -5,21 +5,24 @@ using UnityEngine.Events;
 public class ScoreManager : MonoBehaviour
 {
         public TextMeshProUGUI scoreText;
-        private int _score;
+        [SerializeField] private int score;
         
         public UnityAction<int> OnScoreChanged;
-
+        
+        private void Start()
+        {
+            score = 0;
+            UpdateScoreText();
+        }
+        
+        /// <summary>
+        /// To ensure that GameManager constructed and available using Script Execution Order. 
+        /// </summary>
         private void OnEnable()
         {
             OnScoreChanged += AddScore;
             GameManager.Instance.onRestartGame.AddListener(ResetScore);
             
-        }
-
-        private void ResetScore()
-        {
-            _score = 0;
-            UpdateScoreText();
         }
 
         private void OnDisable()
@@ -28,25 +31,40 @@ public class ScoreManager : MonoBehaviour
             GameManager.Instance.onRestartGame.RemoveListener(ResetScore);
         }
 
-        private void Start()
+        /// <summary>
+        /// Resets the score to zero and updates the score text on the UI. This method is called when the game is restarted.
+        /// </summary>
+        private void ResetScore()
         {
-            _score = 0;
+            Debug.Log("SM::Score reset.");
+            score = 0;
             UpdateScoreText();
         }
 
-        public void AddScore(int points)
+        /// <summary>
+        /// Adds the specified number of points to the current score and updates the score text on the UI.
+        /// </summary>
+        /// <param name="points">points to add</param>
+        private void AddScore(int points)
         {
-            _score += points;
+            score += points;
             UpdateScoreText();
         }
 
+        /// <summary>
+        /// Updates the score text on the UI to reflect the current score.
+        /// </summary>
         private void UpdateScoreText()
         {
-            scoreText.text = $"Score: {_score}";
+            scoreText.text = $"Score: {score}";
         }
 
+        /// <summary>
+        /// Returns the current score as a string.
+        /// </summary>
+        /// <returns>the score</returns>
         public string GetScore()
         {
-            return _score.ToString();
+            return score.ToString();
         }
 }
