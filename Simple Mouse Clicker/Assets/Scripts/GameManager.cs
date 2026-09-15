@@ -13,15 +13,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private ScoreManager scoreManager;
     
+    /// <summary>
+    /// Singleton instance of the GameManager class.
+    /// This property allows other classes to access the GameManager instance easily.
+    /// </summary>
     public static GameManager Instance { get; private set; }
 
+    /// <summary>
+    /// Event that is invoked when the game starts.
+    /// Other classes can subscribe to this event to perform actions when the game begins.
+    /// </summary>
     public UnityEvent onStartGame;
 
     private void Awake()
     {
         Instance = this;
         menuPanel.SetActive(true);
-        scoreManager = FindAnyObjectByType<ScoreManager>();
+        if (!scoreManager) scoreManager = FindAnyObjectByType<ScoreManager>();
     }
 
     /// <summary>
@@ -29,7 +37,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Debug.Log("GameManager started.");
         Time.timeScale = 0f;
     }
     
@@ -40,7 +47,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnStartButtonClick()
     {
-        Debug.Log("Start button clicked.");
         StartGame();
     }
 

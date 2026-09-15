@@ -55,21 +55,17 @@ public class TargetSpawner : MonoBehaviour
     {
         CancelInvoke(nameof(SpawnTarget));
         StopAllCoroutines();
-        Debug.Log("TargetSpawner started spawning targets.");
         InvokeRepeating(nameof(SpawnTarget), 0f, 0.5f);
     }
     
     private void SpawnTarget()
     {
-        Debug.Log("Spawning target...");
         foreach (var target in _targets.Where(target => !target.activeInHierarchy))
         {
-            Debug.Log("Reusing inactive target");
             target.SetActive(true);
             target.transform.position = GetRandomVector2();
             return;
         }
-        Debug.Log("No target found, creating a new target.");
         var newTarget = CreateTarget();
         newTarget.SetActive(true);
         _targets.Add(newTarget);
@@ -82,7 +78,6 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     public void ClearTargets()
     {
-        Debug.Log("Clearing all targets.");
         CancelInvoke(nameof(SpawnTarget));
         foreach (var target in _targets)
         {

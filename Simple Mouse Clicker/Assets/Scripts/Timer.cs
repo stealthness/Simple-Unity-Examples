@@ -19,12 +19,23 @@ public class Timer
     private readonly MonoBehaviour _timerManager;
     private readonly float _initialCountdownTime; // store initial countdown duration
     
+    /// <summary>
+    /// Initializes a new instance of the Timer class with a reference to a MonoBehaviour that will manage the timer's coroutine.
+    /// </summary>
+    /// <param name="timerManager">The MonoBehaviour that will manage the timer's coroutine.</param>
     public Timer(MonoBehaviour timerManager)
     {
         _timerManager = timerManager;
         _initialCountdownTime = 0f;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the Timer class with a reference to a MonoBehaviour that will manage the timer's coroutine,
+    /// an initial countdown time, and a UnityEvent that will be invoked when the countdown finishes
+    /// </summary>
+    /// <param name="timerManager">The MonoBehaviour that will manage the timer's coroutine.</param>
+    /// <param name="initialTime">The initial countdown time.</param>
+    /// <param name="countdownFinishedEvent">The UnityEvent that will be invoked when the countdown finishes.</param>
     public Timer(MonoBehaviour timerManager,float initialTime, UnityEvent countdownFinishedEvent)
     {
         _timerManager = timerManager;
@@ -106,7 +117,10 @@ public class Timer
         _timerCoroutine = null;
     }
 
-
+    /// <summary>
+    /// Resets the timer to its initial state. If the timer is counting up, it resets the elapsed time to zero.
+    /// If the timer is counting down, it resets the elapsed time to the initial countdown time
+    /// </summary>
     public void ResetTimer()
     {
         if (IsCountingUp)

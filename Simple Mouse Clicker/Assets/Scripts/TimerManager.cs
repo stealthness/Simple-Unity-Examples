@@ -1,8 +1,6 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// This is a simple timer manager that uses the Timer class to keep track of elapsed time and update a UI text element
@@ -33,6 +31,11 @@ public class TimerManager : MonoBehaviour
     [SerializeField] private TargetSpawner targetSpawner;
 
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded. It initializes the countdownFinishedEvent and adds a listener
+    /// that calls the GameManager's TimerFinished method, clears the targets from the TargetSpawner, and resets the timer.
+    /// It also initializes the Timer instance with the specified countdown duration and the countdownFinishedEvent as its event listener.
+    /// </summary>
     private void Awake()
     {
         countdownFinishedEvent = new UnityEvent();
@@ -58,6 +61,10 @@ public class TimerManager : MonoBehaviour
         GameManager.Instance.onStartGame.RemoveListener(StartTimer);
     }
 
+    /// <summary>
+    /// Resets the timer by canceling any ongoing invocations of the UpdateTimer method and calling the ResetTimer
+    /// method of the Timer instance.
+    /// </summary>
     private void ResetTimer()
     {
         Debug.Log("TM::Reset timer finished.");
@@ -65,7 +72,9 @@ public class TimerManager : MonoBehaviour
         _timer.ResetTimer();
     }
 
-
+    /// <summary>
+    /// Starts the timer by calling the StartTimer method of the Timer instance and invoking the UpdateTimer method
+    /// </summary>
     private void StartTimer()
     {
         Debug.Log("TM::StartTimer");
@@ -73,11 +82,19 @@ public class TimerManager : MonoBehaviour
         InvokeRepeating(nameof(UpdateTimer), 0f, 0.1f);
     }
 
+    /// <summary>
+    /// Updates the timer text on the UI by calling the UpdateTimerText method. This method is invoked repeatedly at a
+    /// fixed interval
+    /// </summary>
     public void UpdateTimer()
     {
         UpdateTimerText();
     }
 
+    /// <summary>
+    /// Updates the timer text on the UI to reflect the current elapsed time of the Timer instance. It formats the elapsed time
+    /// in minutes and seconds and sets the text of the timerText UI element accordingly.
+    /// </summary>
     private void UpdateTimerText()
     {
         var minutes = Mathf.FloorToInt(_timer.ElapsedTime / 60f);

@@ -4,9 +4,21 @@ using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
+        /// <summary>
+        /// Reference to the TextMeshProUGUI component that displays the score on the UI. This field is public so that
+        /// it can be assigned in the Unity Inspector.
+        /// </summary>
         public TextMeshProUGUI scoreText;
+        
+        /// <summary>
+        /// The current score of the player. It is serialized so that it can be set in the Unity Inspector and is
+        /// initialized to zero at the start of the game.
+        /// </summary>
         [SerializeField] private int score;
         
+        /// <summary>
+        /// Event that is invoked when the score changes. It takes an integer parameter representing the new score value.
+        /// </summary>
         public UnityAction<int> OnScoreChanged;
         
         private void Start()
@@ -16,7 +28,7 @@ public class ScoreManager : MonoBehaviour
         }
         
         /// <summary>
-        /// To ensure that GameManager constructed and available using Script Execution Order. 
+        /// Called when the script is enabled. Subscribes to the OnScoreChanged event and the onStartGame event.
         /// </summary>
         private void OnEnable()
         {
@@ -25,6 +37,9 @@ public class ScoreManager : MonoBehaviour
             
         }
 
+        /// <summary>
+        /// To ensure that GameManager constructed and available using Script Execution Order.
+        /// </summary>
         private void OnDisable()
         {
             OnScoreChanged -= AddScore;
@@ -36,7 +51,6 @@ public class ScoreManager : MonoBehaviour
         /// </summary>
         private void ResetScore()
         {
-            Debug.Log("SM::Score reset.");
             score = 0;
             UpdateScoreText();
         }
