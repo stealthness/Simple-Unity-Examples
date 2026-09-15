@@ -28,10 +28,16 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        if (onStartGame == null)
+        {
+            onStartGame = new UnityEvent();
+        }
+
         menuPanel.SetActive(true);
-        if (!scoreManager) scoreManager = FindAnyObjectByType<ScoreManager>();
-        
-        //onStartGame ??= new UnityEvent();
+        if (!scoreManager)
+        {
+            scoreManager = FindAnyObjectByType<ScoreManager>();
+        }
     }
 
     /// <summary>
@@ -72,7 +78,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         menuPanel.SetActive(true);
-        
+
         UpdateTextInMenuPanel("TitleText", "Time's up!");
         var message = $"Your score: {scoreManager.GetScore()}";
         UpdateTextInMenuPanel("InfoText", message);

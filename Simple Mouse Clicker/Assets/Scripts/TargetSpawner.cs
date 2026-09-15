@@ -24,15 +24,24 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        GameManager.Instance.onStartGame.AddListener(ClearTargets);
-        GameManager.Instance.onStartGame.AddListener(StartSpawning);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.onStartGame.AddListener(StartNewGame);
+        }
     }
 
-    // Assumed That GameManager is not null
     private void OnDisable()
     {
-        GameManager.Instance.onStartGame.RemoveListener(ClearTargets);
-        GameManager.Instance.onStartGame.RemoveListener(StartSpawning);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.onStartGame.RemoveListener(StartNewGame);
+        }
+    }
+
+    private void StartNewGame()
+    {
+        ClearTargets();
+        StartSpawning();
     }
 
     /// <summary>
@@ -53,7 +62,7 @@ public class TargetSpawner : MonoBehaviour
     /// </summary>
     private void StartSpawning()
     {
-        ClearTargets();
+        CancelInvoke(nameof(SpawnTarget));
         InvokeRepeating(nameof(SpawnTarget), 0f, 0.5f);
     }
     
@@ -78,10 +87,15 @@ public class TargetSpawner : MonoBehaviour
     public void ClearTargets()
     {
         CancelInvoke(nameof(SpawnTarget));
-        foreach (var target in _targets)
+
+        foreach (var target in _targets.ToList())
         {
-            Destroy(target);
+            if (target != null)
+            {
+                Destroy(target);
+            }
         }
+
         _targets.Clear();
         CreateTargetPool(5);
     }

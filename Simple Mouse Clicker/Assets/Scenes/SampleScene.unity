@@ -1114,7 +1114,9 @@ MonoBehaviour:
 
     Mouse
 
-    Click'
+    Clicker
+
+    Game'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67dc4555f48803d4cbc4ca7c94a22f1a, type: 2}
   m_sharedMaterial: {fileID: 7175715433618170991, guid: 67dc4555f48803d4cbc4ca7c94a22f1a, type: 2}
